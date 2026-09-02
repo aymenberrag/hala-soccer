@@ -58,7 +58,7 @@ class AppComponentStyles {
   static ButtonStyle primaryButton = ElevatedButton.styleFrom(
     backgroundColor: AppColors.brandGreenBright,
     foregroundColor: AppColors.brandNavyDark,
-    disabledBackgroundColor: AppColors.brandGreenBright.withOpacity(0.4),
+    disabledBackgroundColor: AppColors.brandGreenBright.withValues(alpha: 0.4),
     minimumSize: const Size.fromHeight(52),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(AppRadius.md),

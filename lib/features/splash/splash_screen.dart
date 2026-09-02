@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     gradient: AppColors.brandGradient,
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.brandGreenBright.withOpacity(0.35),
+                        color: AppColors.brandGreenBright.withValues(alpha: 0.35),
                         blurRadius: 32,
                         spreadRadius: 4,
                       ),

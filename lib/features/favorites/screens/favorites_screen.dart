@@ -38,7 +38,7 @@ class FavoritesScreen extends ConsumerWidget {
             child: ListView.separated(
               padding: const EdgeInsets.all(AppSpacing.md),
               itemCount: favorites.length,
-              separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.sm),
+              separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
               itemBuilder: (context, i) {
                 final fav = favorites[i];
                 return Container(
@@ -48,7 +48,7 @@ class FavoritesScreen extends ConsumerWidget {
                     children: [
                       if (fav.teamLogo != null)
                         Image.network(fav.teamLogo!, width: 32, height: 32,
-                            errorBuilder: (_, __, ___) => const Icon(Icons.shield_outlined))
+                            errorBuilder: (_, _, _) => const Icon(Icons.shield_outlined))
                       else
                         const Icon(Icons.shield_outlined, color: AppColors.textMuted),
                       const SizedBox(width: AppSpacing.md),

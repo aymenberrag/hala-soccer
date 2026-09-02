@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
-import '../../../core/theme/app_typography.dart';
 import '../../../shared/widgets/app_state_widgets.dart';
 import '../../../shared/widgets/fixture_card.dart';
 import '../../home/home_providers.dart';
@@ -33,7 +32,7 @@ class MatchesScreen extends ConsumerWidget {
             child: ListView.separated(
               padding: const EdgeInsets.all(AppSpacing.md),
               itemCount: all.length,
-              separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.sm),
+              separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
               itemBuilder: (context, i) => FixtureCard(fixture: all[i]),
             ),
           );

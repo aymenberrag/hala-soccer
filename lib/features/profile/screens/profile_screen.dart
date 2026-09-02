@@ -53,7 +53,7 @@ class ProfileScreen extends ConsumerWidget {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.error,
                     minimumSize: const Size.fromHeight(52),
-                    side: BorderSide(color: AppColors.error.withOpacity(0.4)),
+                    side: BorderSide(color: AppColors.error.withValues(alpha: 0.4)),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.md)),
                     textStyle: AppTypography.button,
                   ),

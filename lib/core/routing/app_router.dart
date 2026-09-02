@@ -67,6 +67,6 @@ final routerProvider = Provider<GoRouter>((ref) {
 /// `refreshListenable` (a plain Listenable) can react to.
 class _AuthListenable extends ChangeNotifier {
   _AuthListenable(Ref ref) {
-    ref.listen(authControllerProvider, (_, __) => notifyListeners());
+    ref.listen(authControllerProvider, (_, _) => notifyListeners());
   }
 }

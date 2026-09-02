@@ -25,7 +25,7 @@ class FixtureCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.network(fixture.leagueLogo, width: 16, height: 16, errorBuilder: (_, __, ___) => const SizedBox(width: 16)),
+                Image.network(fixture.leagueLogo, width: 16, height: 16, errorBuilder: (_, _, _) => const SizedBox(width: 16)),
                 const SizedBox(width: AppSpacing.xs),
                 Expanded(
                   child: Text(
@@ -65,7 +65,7 @@ class _TeamRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = Image.network(logo, width: 24, height: 24, errorBuilder: (_, __, ___) => const Icon(Icons.shield, size: 20));
+    final image = Image.network(logo, width: 24, height: 24, errorBuilder: (_, _, _) => const Icon(Icons.shield, size: 20));
     final text = Expanded(
       child: Text(
         name,
@@ -112,7 +112,7 @@ class _StatusPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.15),
+        color: color.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(AppRadius.pill),
       ),
       child: Text(label, style: AppTypography.caption.copyWith(color: color, fontWeight: FontWeight.w700)),

@@ -17,7 +17,7 @@ class CompetitionsScreen extends StatelessWidget {
       body: ListView.separated(
         padding: const EdgeInsets.all(AppSpacing.md),
         itemCount: featuredLeagues.length,
-        separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.sm),
+        separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.sm),
         itemBuilder: (context, i) {
           final league = featuredLeagues[i];
           return Container(
@@ -29,7 +29,7 @@ class CompetitionsScreen extends StatelessWidget {
                   league["logo"] as String,
                   width: 36,
                   height: 36,
-                  errorBuilder: (_, __, ___) => const Icon(Icons.shield_outlined, color: AppColors.textMuted),
+                  errorBuilder: (_, _, _) => const Icon(Icons.shield_outlined, color: AppColors.textMuted),
                 ),
                 const SizedBox(width: AppSpacing.md),
                 Expanded(

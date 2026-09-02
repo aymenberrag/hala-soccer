@@ -63,7 +63,7 @@ class _HomeShellState extends State<HomeShell> {
                     duration: AppDurations.fast,
                     margin: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: selected ? Colors.white.withOpacity(0.15) : Colors.transparent,
+                      color: selected ? Colors.white.withValues(alpha: 0.15) : Colors.transparent,
                       borderRadius: BorderRadius.circular(AppRadius.md),
                     ),
                     child: Column(

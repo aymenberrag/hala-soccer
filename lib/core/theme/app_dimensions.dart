@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'app_colors.dart';
 
 class AppSpacing {
   AppSpacing._();
@@ -24,7 +23,7 @@ class AppShadows {
   AppShadows._();
   static List<BoxShadow> card = [
     BoxShadow(
-      color: Colors.black.withOpacity(0.25),
+      color: Colors.black.withValues(alpha: 0.25),
       blurRadius: 16,
       offset: const Offset(0, 8),
     ),
@@ -39,5 +38,5 @@ class AppDurations {
 }
 
 extension AppColorOpacity on Color {
-  Color get faint => withOpacity(0.08);
+  Color get faint => withValues(alpha: 0.08);
 }
