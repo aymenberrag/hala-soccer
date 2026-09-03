@@ -34,6 +34,11 @@ class FixtureCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                Text(
+                  fixtureDateLabel(fixture.kickoff),
+                  style: AppTypography.caption.copyWith(color: AppColors.textMuted),
+                ),
+                const SizedBox(width: AppSpacing.sm),
                 _StatusPill(fixture: fixture),
               ],
             ),
@@ -80,6 +85,34 @@ class _TeamRow extends StatelessWidget {
           : [image, const SizedBox(width: AppSpacing.xs), text],
     );
   }
+}
+
+const _weekdayNames = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+/// Today / Tomorrow / Yesterday / a weekday name (within the next 6 days)
+/// / or a plain d-M-yyyy date, matching how the fixture's kickoff date
+/// relates to today — shown on every fixture card regardless of status,
+/// since Fixtures/League Details cards can span many different rounds.
+String fixtureDateLabel(DateTime kickoff, {DateTime? now}) {
+  final today = now ?? DateTime.now();
+  final localKickoff = kickoff.isUtc ? kickoff.toLocal() : kickoff;
+  final a = DateTime(today.year, today.month, today.day);
+  final b = DateTime(localKickoff.year, localKickoff.month, localKickoff.day);
+  final diff = b.difference(a).inDays;
+
+  if (diff == 0) return "Today";
+  if (diff == 1) return "Tomorrow";
+  if (diff == -1) return "Yesterday";
+  if (diff > 1 && diff < 7) return _weekdayNames[localKickoff.weekday - 1];
+  return "${localKickoff.day}-${localKickoff.month}-${localKickoff.year}";
 }
 
 class _StatusPill extends StatelessWidget {
