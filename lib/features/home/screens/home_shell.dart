@@ -32,7 +32,7 @@ class _HomeShellState extends State<HomeShell> {
 
   static const _items = [
     (icon: Icons.home_rounded, label: "Home"),
-    (icon: Icons.sports_soccer, label: "Matches"),
+    (icon: Icons.sports_soccer, label: "Fixtures"),
     (icon: Icons.emoji_events_outlined, label: "Leagues"),
     (icon: Icons.star_rounded, label: "Favorites"),
     (icon: Icons.person_rounded, label: "Profile"),

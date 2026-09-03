@@ -46,17 +46,77 @@ class FootballApiClient {
     return response.isNotEmpty ? response.first as String : null;
   }
 
-  Future<Map<String, dynamic>?> standings({required int leagueId, required int season}) async {
+  /// Returns the list of team standing rows for the league's main
+  /// group/table. API-Football nests this as `response[0].league.standings`,
+  /// which is itself a list of *groups* (relevant for leagues split into
+  /// multiple tables) — we take the first group, which is a list of row
+  /// objects (rank/team/points/goalsDiff/all/form/...).
+  Future<List<dynamic>?> standings({required int leagueId, required int season}) async {
     final data = await _get("/standings", {"league": "$leagueId", "season": "$season"});
     final response = data["response"] as List<dynamic>;
     if (response.isEmpty) return null;
     final league = response.first["league"] as Map<String, dynamic>;
     final standingsGroups = league["standings"] as List<dynamic>;
-    return standingsGroups.isNotEmpty ? standingsGroups.first as Map<String, dynamic> : null;
+    return standingsGroups.isNotEmpty ? standingsGroups.first as List<dynamic> : null;
   }
 
   Future<List<dynamic>> topScorers({required int leagueId, required int season}) async {
     final data = await _get("/players/topscorers", {"league": "$leagueId", "season": "$season"});
+    return data["response"] as List<dynamic>;
+  }
+
+  Future<List<dynamic>> topAssists({required int leagueId, required int season}) async {
+    final data = await _get("/players/topassists", {"league": "$leagueId", "season": "$season"});
+    return data["response"] as List<dynamic>;
+  }
+
+  /// All rounds for a league/season, in API order — used to move
+  /// previous/next relative to the current round (section 7).
+  Future<List<String>> allRounds({required int leagueId, required int season}) async {
+    final data = await _get("/fixtures/rounds", {"league": "$leagueId", "season": "$season"});
+    return (data["response"] as List<dynamic>).cast<String>();
+  }
+
+  /// Team search for the onboarding "Favorite Teams" step.
+  Future<List<dynamic>> searchTeams(String query) async {
+    if (query.trim().length < 3) return const [];
+    final data = await _get("/teams", {"search": query.trim()});
+    return data["response"] as List<dynamic>;
+  }
+
+  /// League search for the onboarding "Favorite Leagues" step.
+  Future<List<dynamic>> searchLeagues(String query) async {
+    if (query.trim().length < 3) return const [];
+    final data = await _get("/leagues", {"search": query.trim()});
+    return data["response"] as List<dynamic>;
+  }
+
+  Future<Map<String, dynamic>?> fixtureById(int fixtureId) async {
+    final data = await _get("/fixtures", {"id": "$fixtureId"});
+    final response = data["response"] as List<dynamic>;
+    return response.isNotEmpty ? response.first as Map<String, dynamic> : null;
+  }
+
+  Future<List<dynamic>> fixtureEvents(int fixtureId) async {
+    final data = await _get("/fixtures/events", {"fixture": "$fixtureId"});
+    return data["response"] as List<dynamic>;
+  }
+
+  Future<List<dynamic>> fixtureStatistics(int fixtureId) async {
+    final data = await _get("/fixtures/statistics", {"fixture": "$fixtureId"});
+    return data["response"] as List<dynamic>;
+  }
+
+  Future<List<dynamic>> fixtureLineups(int fixtureId) async {
+    final data = await _get("/fixtures/lineups", {"fixture": "$fixtureId"});
+    return data["response"] as List<dynamic>;
+  }
+
+  Future<List<dynamic>> headToHead({required int team1Id, required int team2Id}) async {
+    final data = await _get("/fixtures/headtohead", {
+      "h2h": "$team1Id-$team2Id",
+      "last": "5",
+    });
     return data["response"] as List<dynamic>;
   }
 

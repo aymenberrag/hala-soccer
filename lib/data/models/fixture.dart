@@ -10,6 +10,7 @@ class Fixture {
   final String leagueName;
   final String leagueLogo;
   final String? leagueCountry;
+  final String? round;
 
   final int homeTeamId;
   final String homeTeamName;
@@ -31,6 +32,7 @@ class Fixture {
     required this.leagueName,
     required this.leagueLogo,
     this.leagueCountry,
+    this.round,
     required this.homeTeamId,
     required this.homeTeamName,
     required this.homeTeamLogo,
@@ -58,6 +60,7 @@ class Fixture {
       leagueName: league["name"] as String,
       leagueLogo: league["logo"] as String,
       leagueCountry: league["country"] as String?,
+      round: league["round"] as String?,
       homeTeamId: teams["home"]["id"] as int,
       homeTeamName: teams["home"]["name"] as String,
       homeTeamLogo: teams["home"]["logo"] as String,

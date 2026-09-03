@@ -5,6 +5,9 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../auth/auth_controller.dart';
+import 'change_password_screen.dart';
+import 'edit_personal_info_sheet.dart';
+import 'manage_favorites_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -43,7 +46,36 @@ class ProfileScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: AppSpacing.xl),
-              _MenuTile(icon: Icons.lock_outline, label: "Change password", onTap: () {}),
+              _MenuTile(
+                icon: Icons.person_outline,
+                label: "Personal information",
+                onTap: () => showEditPersonalInfoSheet(context, ref),
+              ),
+              _MenuTile(
+                icon: Icons.shield_outlined,
+                label: "Favorite teams",
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const ManageFavoritesScreen(kind: ManageFavoritesKind.teams),
+                  ),
+                ),
+              ),
+              _MenuTile(
+                icon: Icons.emoji_events_outlined,
+                label: "Favorite leagues",
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const ManageFavoritesScreen(kind: ManageFavoritesKind.leagues),
+                  ),
+                ),
+              ),
+              _MenuTile(
+                icon: Icons.lock_outline,
+                label: "Change password",
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const ChangePasswordScreen()),
+                ),
+              ),
               _MenuTile(icon: Icons.notifications_outlined, label: "Notifications", onTap: () {}),
               _MenuTile(icon: Icons.help_outline, label: "Help & support", onTap: () {}),
               const Spacer(),

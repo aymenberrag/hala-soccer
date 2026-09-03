@@ -24,6 +24,26 @@ backend, and the same brand identity and football data source as v1.
 - **Design system**: colors ported directly from v1's actual hardcoded
   values (teal→green gradient, navy accent) so it still looks like Hala
   Soccer, just cleaned up into `lib/core/theme`.
+- **AI curation** (new headline feature) — `lib/data/services/ai/`:
+  `AiCurationService` combines what the user favorited with a rule-based
+  "real-world football importance" scorer (`FootballImportance`: derbies
+  like Real Madrid–Barcelona, Champions League/knockout rounds, top
+  leagues) and, when `OPENROUTER_API_KEY` is set, asks a free Qwen model
+  via OpenRouter to pick/rank the Home feed and league list on top of
+  that. The AI provider is swappable (`AiProviderFactory` +
+  `AI_PROVIDER`/`AI_MODEL` in `.env`) and the whole thing always falls
+  back to the rule-based ranking if the AI call fails or isn't
+  configured — Home never breaks because of it.
+- **Full onboarding flow** — intro carousel → login/signup → user info
+  (country/age/gender) → favorite teams (search + multi-select) →
+  favorite leagues (search + multi-select) → Home, bulk-saved via
+  `POST /api/profile/onboarding-preferences`. Router redirect gates on
+  `AppUser.preferencesComplete` so returning users skip straight to Home.
+- **Fixture Details, League Details** — events/stats/lineups/H2H for a
+  match; standings/fixtures/top scorers & assists for a league.
+- **Favorites** — now shows favorite leagues (not just teams) plus
+  upcoming/recent matches involving favorites, and Profile can add/remove
+  both teams and leagues after onboarding.
 
 ## Project layout
 
@@ -51,15 +71,20 @@ backend/         Flask auth + favorites API (see backend/README below)
 
 ## Known gaps / not yet built
 
-- Match detail screen (events, lineups, stats) — API-Sports supports
-  this data; the UI isn't built yet.
-- Competitions → standings/top-scorers drill-down — repository methods
-  exist (`FootballRepository.leagueStandings`, `.leagueTopScorers`),
-  screen doesn't yet.
 - Offline caching of previously-loaded data.
 - "Forgot password" email delivery — the backend endpoint exists but
   doesn't send an email yet; needs a provider (SendGrid/SES/etc.) wired
   up before shipping.
-- This code has not been run through `flutter analyze` or compiled —
-  no Flutter SDK was available in the environment it was written in.
-  Run `flutter pub get && flutter analyze` before trusting it fully.
+- Notifications/language/theme toggles mentioned as optional in the spec
+  are not implemented (spec: "if implemented").
+- **This code has not been run through `flutter analyze`, compiled, or
+  run on a device/emulator** — no Flutter SDK, Android emulator, or
+  network access to api-football.com was available in the environment
+  it was written in. It was written carefully against the existing
+  codebase's own conventions and cross-checked by hand, but **you must
+  run `flutter pub get && flutter analyze` and exercise the app on a
+  real device before trusting it in production.** Highest-risk areas to
+  test first: the onboarding → preferences redirect flow in
+  `core/routing/app_router.dart`, and the AI curation JSON parsing in
+  `data/services/ai/curation_service.dart` (falls back safely, but worth
+  confirming the fallback actually triggers cleanly offline).

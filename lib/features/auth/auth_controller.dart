@@ -47,6 +47,12 @@ class AuthController extends StateNotifier<AuthState> {
     state = state.copyWith(onboardingComplete: true);
   }
 
+  /// Replaces the current user (e.g. after saving onboarding preferences
+  /// or editing the profile) without touching auth/onboarding status.
+  void setUser(AppUser user) {
+    state = state.copyWith(user: user);
+  }
+
   /// Returns an error message on failure, or null on success.
   Future<String?> login({required String email, required String password}) async {
     try {
