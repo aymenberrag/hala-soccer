@@ -1,0 +1,17 @@
+export const AppRoutes = {
+  splash: "/",
+  onboarding: "/onboarding",
+  login: "/login",
+  signup: "/signup",
+  forgotPassword: "/forgot-password",
+  preferencesInfo: "/preferences/info",
+  preferencesTeams: "/preferences/teams",
+  preferencesLeagues: "/preferences/leagues",
+  home: "/home",
+  matches: "/matches",
+  matchDetails: (id: number | string) => `/matches/${id}`,
+  competitions: "/competitions",
+  competitionDetails: (id: number | string) => `/competitions/${id}`,
+  favorites: "/favorites",
+  profile: "/profile",
+} as const;
